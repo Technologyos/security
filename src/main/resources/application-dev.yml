@@ -42,3 +42,10 @@ logging:
         SQL: DEBUG
         type.descriptor.sql.BasicBinder: DEBUG
     com.baeldung.testloglevel: DEBUG
+
+security:
+  default:
+    role: CUSTOMER
+  jwt:
+    secret-key: VGhpcyBpcyBteSBzZWN1cmUga2V5MTIzMTMxMjMxMzIxMzIxMzEyMzEyMzEyMzIxMzEzMTMxMjM=
+    expiration-in-minutes: 30
