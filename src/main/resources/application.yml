@@ -6,3 +6,5 @@ server:
 spring:
   application:
     name: security
+  profiles:
+    active: local
