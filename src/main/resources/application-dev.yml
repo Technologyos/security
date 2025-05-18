@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/security_db
+    username: security
+    password: YXNhbGF6YXJqQGdtYWlsLmNvbToqR
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+  #JPA and Hibernate Configuration
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        use_sql_comments: true
+    data:
+      web:
+        pageable:
+          parameter: p
+          size-parameter: limit
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(%5p) [%t] %clr(${spring.application.name:}){cyan} - %m%n"
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  level:
+    org:
+      springframework:
+        orm.jpa: DEBUG
+        transaction: DEBUG
+        data.jpa: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type.descriptor.sql.BasicBinder: DEBUG
+    com.baeldung.testloglevel: DEBUG

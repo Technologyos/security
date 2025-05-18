@@ -1,0 +1,46 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:security_db
+    username: test
+    password: ""
+    driver-class-name: org.h2.Driver
+  #Enable H2 console for debugging
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  #JPA and Hibernate Configuration
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        use_sql_comments: true
+    data:
+      web:
+        pageable:
+          parameter: p
+          size-parameter: limit
+    defer-datasource-initialization: true
+  #Schema and Data Initialization
+  sql:
+    init:
+      mode: always
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(%5p) [%t] %clr(${spring.application.name:}){cyan} - %m%n"
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  level:
+    org:
+      springframework:
+        orm.jpa: DEBUG
+        transaction: DEBUG
+        data.jpa: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type.descriptor.sql.BasicBinder: DEBUG
+    com.baeldung.testloglevel: DEBUG
