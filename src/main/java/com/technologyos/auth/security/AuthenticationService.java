@@ -11,6 +11,7 @@ import com.technologyos.auth.repositories.JwtTokenRepository;
 import com.technologyos.auth.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,12 +20,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class AuthenticationService {
 
    private final UserService userService;
@@ -82,10 +85,17 @@ public class AuthenticationService {
 
    public boolean validateToken(String jwt) {
       try{
-         jwtService.extractUsername(jwt);
+         JwtToken token = jwtTokenRepository.findByToken(jwt)
+            .orElseThrow(() -> new ObjectNotFoundException("Token not found: " + jwt));
+
+         if (!token.isValid() || token.getExpiration().before(new Date())) {
+            return false;
+         }
+
+         jwtService.extractUsername(token.getToken());
          return true;
       }catch (Exception e){
-         System.out.println(e.getMessage());
+         log.warn("Invalid JWT: {}", e.getMessage());
          return false;
       }
    }
