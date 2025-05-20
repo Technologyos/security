@@ -63,7 +63,7 @@ public class CustomAuthorizationManager implements AuthorizationManager<RequestA
    private List<Operation> obtainOperations(Authentication authentication) {
       UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) authentication;
       String username = (String) authToken.getPrincipal();
-      User user = userService.findCustomersByUsername(username)
+      User user = userService.findCustomerByUsername(username)
          .orElseThrow(() -> new ObjectNotFoundException("User not found. Username: " + username));
 
       return user.getRole().getPermissions().stream()
