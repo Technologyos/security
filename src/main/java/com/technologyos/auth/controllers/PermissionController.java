@@ -1,7 +1,7 @@
 package com.technologyos.auth.controllers;
 
-import com.technologyos.auth.dto.permissions.PermissionRequest;
-import com.technologyos.auth.dto.permissions.PermissionResponse;
+import com.technologyos.auth.dtos.permissions.PermissionRequest;
+import com.technologyos.auth.dtos.permissions.PermissionResponse;
 import com.technologyos.auth.services.PermissionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

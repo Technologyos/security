@@ -1,6 +1,6 @@
 package com.technologyos.auth.exceptions;
 
-import com.technologyos.auth.dto.ApiError;
+import com.technologyos.auth.dtos.ApiError;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.technologyos.auth.services.impl;
 
-import com.technologyos.auth.dto.signup.RegisteredUser;
-import com.technologyos.auth.dto.signup.UserRequest;
+import com.technologyos.auth.dtos.signup.RegisteredUser;
+import com.technologyos.auth.dtos.signup.UserRequest;
 import com.technologyos.auth.entities.Role;
 import com.technologyos.auth.entities.User;
 import com.technologyos.auth.exceptions.InvalidPasswordException;

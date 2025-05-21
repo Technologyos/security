@@ -1,4 +1,4 @@
-package com.technologyos.auth.dto;
+package com.technologyos.auth.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

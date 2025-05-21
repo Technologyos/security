@@ -1,7 +1,7 @@
 package com.technologyos.auth.services.impl;
 
-import com.technologyos.auth.dto.permissions.PermissionRequest;
-import com.technologyos.auth.dto.permissions.PermissionResponse;
+import com.technologyos.auth.dtos.permissions.PermissionRequest;
+import com.technologyos.auth.dtos.permissions.PermissionResponse;
 import com.technologyos.auth.entities.GrantedPermission;
 import com.technologyos.auth.entities.Operation;
 import com.technologyos.auth.entities.Role;

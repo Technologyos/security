@@ -1,4 +1,4 @@
-package com.technologyos.auth.dto.signup;
+package com.technologyos.auth.dtos.signup;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

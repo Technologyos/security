@@ -1,8 +1,8 @@
 package com.technologyos.auth.controllers;
 
-import com.technologyos.auth.dto.auth.AuthenticationRequest;
-import com.technologyos.auth.dto.auth.AuthenticationResponse;
-import com.technologyos.auth.dto.auth.LogoutResponse;
+import com.technologyos.auth.dtos.auth.AuthenticationRequest;
+import com.technologyos.auth.dtos.auth.AuthenticationResponse;
+import com.technologyos.auth.dtos.auth.LogoutResponse;
 import com.technologyos.auth.entities.User;
 import com.technologyos.auth.security.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
