@@ -1,7 +1,7 @@
 package com.technologyos.auth.services;
 
-import com.technologyos.auth.dto.permissions.PermissionRequest;
-import com.technologyos.auth.dto.permissions.PermissionResponse;
+import com.technologyos.auth.dtos.permissions.PermissionRequest;
+import com.technologyos.auth.dtos.permissions.PermissionResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

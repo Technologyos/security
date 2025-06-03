@@ -1,9 +1,9 @@
 package com.technologyos.auth.security;
 
-import com.technologyos.auth.dto.auth.AuthenticationRequest;
-import com.technologyos.auth.dto.auth.AuthenticationResponse;
-import com.technologyos.auth.dto.signup.RegisteredUser;
-import com.technologyos.auth.dto.signup.UserRequest;
+import com.technologyos.auth.dtos.auth.AuthenticationRequest;
+import com.technologyos.auth.dtos.auth.AuthenticationResponse;
+import com.technologyos.auth.dtos.signup.RegisteredUser;
+import com.technologyos.auth.dtos.signup.UserRequest;
 import com.technologyos.auth.entities.JwtToken;
 import com.technologyos.auth.entities.User;
 import com.technologyos.auth.exceptions.ObjectNotFoundException;

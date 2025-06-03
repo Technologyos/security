@@ -1,4 +1,4 @@
-package com.technologyos.auth.dto.auth;
+package com.technologyos.auth.dtos.auth;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

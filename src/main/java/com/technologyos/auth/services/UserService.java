@@ -1,7 +1,7 @@
 package com.technologyos.auth.services;
 
-import com.technologyos.auth.dto.signup.RegisteredUser;
-import com.technologyos.auth.dto.signup.UserRequest;
+import com.technologyos.auth.dtos.signup.RegisteredUser;
+import com.technologyos.auth.dtos.signup.UserRequest;
 import com.technologyos.auth.entities.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,7 +1,7 @@
 package com.technologyos.auth.controllers;
 
-import com.technologyos.auth.dto.signup.RegisteredUser;
-import com.technologyos.auth.dto.signup.UserRequest;
+import com.technologyos.auth.dtos.signup.RegisteredUser;
+import com.technologyos.auth.dtos.signup.UserRequest;
 import com.technologyos.auth.services.UserService;
 import com.technologyos.auth.security.AuthenticationService;
 import jakarta.validation.Valid;

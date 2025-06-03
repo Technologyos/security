@@ -1,4 +1,4 @@
-package com.technologyos.auth.dto.permissions;
+package com.technologyos.auth.dtos.permissions;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
