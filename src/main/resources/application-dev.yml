@@ -1,7 +1,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/security_db
-    username: security
+    username: technologyos
     password: YXNhbGF6YXJqQGdtYWlsLmNvbToqR
     driver-class-name: org.postgresql.Driver
     hikari:
@@ -23,10 +23,10 @@ spring:
           parameter: p
           size-parameter: limit
     defer-datasource-initialization: true
+  #Schema and Data Initialization
   sql:
     init:
       mode: always
-
 
 logging:
   pattern:
