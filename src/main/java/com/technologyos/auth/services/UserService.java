@@ -14,5 +14,5 @@ public interface UserService {
 
    User registerCustomer(UserRequest userRequest);
 
-   Optional<User> findCustomerByUsername(String username);
+   User findCustomerByEmail(String email);
 }

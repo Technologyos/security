@@ -61,8 +61,9 @@ public class UserServiceImpl implements UserService {
    }
 
    @Override
-   public Optional<User> findCustomerByUsername(String username) {
-      return userRepository.findByUsername(username);
+   public User findCustomerByEmail(String email) {
+      return userRepository.findByEmail(email)
+         .orElseThrow(() -> new ObjectNotFoundException("Customer not found. Email: " + email));
    }
 
    private void validatePassword(UserRequest userRequest) {
