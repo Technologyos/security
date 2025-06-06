@@ -1,9 +1,9 @@
 package com.technologyos.auth.controllers;
 
+import com.technologyos.auth.business.AuthBusiness;
 import com.technologyos.auth.dtos.signup.RegisteredUser;
 import com.technologyos.auth.dtos.signup.UserRequest;
 import com.technologyos.auth.services.UserService;
-import com.technologyos.auth.security.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/customers")
 public class CustomerController {
 
-   private final AuthenticationService authenticationService;
+   private final AuthBusiness authBusiness;
    private final UserService userService;
 
    @GetMapping
@@ -33,7 +33,7 @@ public class CustomerController {
 
    @PostMapping
    public ResponseEntity<RegisteredUser> registerCustomer(@RequestBody @Valid UserRequest userRequest){
-      RegisteredUser registeredUser = authenticationService.registerCustomer(userRequest);
+      RegisteredUser registeredUser = authBusiness.registerCustomer(userRequest);
       return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
    }
 }

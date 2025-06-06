@@ -2,8 +2,8 @@ package com.technologyos.auth.configs.filters;
 
 import com.technologyos.auth.entities.JwtToken;
 import com.technologyos.auth.repositories.JwtTokenRepository;
+import com.technologyos.auth.services.JwtService;
 import com.technologyos.auth.services.UserService;
-import com.technologyos.auth.security.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
