@@ -110,6 +110,7 @@ curl --request POST \
 --data '{
 "name": "Armando Salazar",
 "username": "asalazarj",
+"email" : "armando2@gmail.com",
 "password": "Temporal@32",
 "repeatedPassword":"Temporal@32"
 }'

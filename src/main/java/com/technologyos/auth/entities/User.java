@@ -16,62 +16,68 @@ import java.util.stream.Collectors;
 @Getter
 @Table(name = "users")
 public class User implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long userId;
 
-    @Column(unique = true, nullable = false)
-    private String username;
-    private String name;
-    @Column(nullable = false)
-    private String password;
+   @Column(unique = true, nullable = false)
+   private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+   @Column(unique = true, nullable = false)
+   private String email;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(role == null) return null;
+   @Column(nullable = false)
+   private String name;
 
-        if(role.getPermissions() == null) return null;
+   @Column(nullable = false)
+   private String password;
 
-        List<SimpleGrantedAuthority> authorities = role.getPermissions().stream()
-            .map(permission -> permission.getOperation().getName())
-            .map(SimpleGrantedAuthority::new)
-            .collect(Collectors.toList());
+   @ManyToOne
+   @JoinColumn(name = "role_id")
+   private Role role;
 
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.role.getName()));
-        return authorities;
-    }
+   @Override
+   public Collection<? extends GrantedAuthority> getAuthorities() {
+      if(role == null) return null;
 
-    @Override
-    public String getPassword() {
-        return password;
-    }
+      if(role.getPermissions() == null) return null;
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
+      List<SimpleGrantedAuthority> authorities = role.getPermissions().stream()
+         .map(permission -> permission.getOperation().getName())
+         .map(SimpleGrantedAuthority::new)
+         .collect(Collectors.toList());
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+      authorities.add(new SimpleGrantedAuthority("ROLE_" + this.role.getName()));
+      return authorities;
+   }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+   @Override
+   public String getPassword() {
+      return password;
+   }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+   @Override
+   public String getUsername() {
+      return username;
+   }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+   @Override
+   public boolean isAccountNonExpired() {
+      return true;
+   }
+
+   @Override
+   public boolean isAccountNonLocked() {
+      return true;
+   }
+
+   @Override
+   public boolean isCredentialsNonExpired() {
+      return true;
+   }
+
+   @Override
+   public boolean isEnabled() {
+      return true;
+   }
 }

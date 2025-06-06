@@ -16,6 +16,7 @@ import java.io.Serializable;
 public class RegisteredUser implements Serializable {
    private Long userId;
    private String username;
+   private String email;
    private String name;
    private String role;
    private String jwt;

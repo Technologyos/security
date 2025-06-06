@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
          .map(user -> RegisteredUser.builder()
             .userId(user.getUserId())
             .username(user.getUsername())
+            .email(user.getEmail())
             .name(user.getName())
             .role(user.getRole().getName())
             .build())
@@ -50,6 +51,7 @@ public class UserServiceImpl implements UserService {
       validatePassword(userRequest);
       User user = new User();
       user.setUsername(userRequest.getUsername());
+      user.setEmail(userRequest.getEmail());
       user.setName(userRequest.getName());
       user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
       Role defaultRole = roleService.findDefaultRole()

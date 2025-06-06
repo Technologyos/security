@@ -42,6 +42,7 @@ public class AuthenticationService {
       return RegisteredUser.builder()
          .userId(user.getUserId())
          .name(user.getName())
+         .email(user.getEmail())
          .username(user.getUsername())
          .role(user.getRole().getName())
          .jwt(jwt)
