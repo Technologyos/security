@@ -16,7 +16,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -57,21 +56,25 @@ public class AuthenticationService {
       return extraClaims;
    }
 
-   public AuthenticationResponse login(AuthenticationRequest autRequest) {
+   public AuthenticationResponse login(AuthenticationRequest authRequest) {
       Authentication authentication = new UsernamePasswordAuthenticationToken(
-         autRequest.getUsername(), autRequest.getPassword()
+         authRequest.getEmail(), authRequest.getPassword()
       );
 
       authenticationManager.authenticate(authentication);
 
-      UserDetails user = userService.findCustomerByUsername(autRequest.getUsername()).get();
-      String jwt = jwtService.generateToken(user, generateExtraClaims((User) user));
-      saveUserToken((User) user, jwt);
+      User user = userService.findCustomerByEmail(authRequest.getEmail());
 
-      AuthenticationResponse authRsp = new AuthenticationResponse();
-      authRsp.setJwt(jwt);
+      String jwt = jwtService.generateToken(user, generateExtraClaims(user));
+      saveUserToken(user, jwt);
 
-      return authRsp;
+      return AuthenticationResponse.builder()
+         .username(user.getUsername())
+         .email(user.getEmail())
+         .name(user.getName())
+         .role(user.getRole().getName())
+         .jwt(jwt)
+         .build();
    }
 
    private void saveUserToken(User user, String jwt) {
@@ -103,10 +106,9 @@ public class AuthenticationService {
 
    public User findLoggedInUser() {
       UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-      String username = (String) auth.getPrincipal();
+      String email = (String) auth.getPrincipal();
 
-      return userService.findCustomerByUsername(username)
-         .orElseThrow(() -> new ObjectNotFoundException("User not found. username: " + username));
+      return userService.findCustomerByEmail(email);
    }
 
    public void logout(HttpServletRequest request) {

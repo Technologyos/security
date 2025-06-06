@@ -1,7 +1,7 @@
 INSERT INTO role (name) VALUES ('CUSTOMER'), ('ADMINISTRATOR');
 
 INSERT INTO module (name, base_path) VALUES ('CUSTOMER', '/customers'),('AUTH', '/auth'),
-('PERMISSION', '/permissions'), ('DOCTOR', '/doctors');
+('PERMISSION', '/permissions');
 
 INSERT INTO operation (name, path, http_method, permit_all, module_id) VALUES
 ('READ_ALL_CUSTOMERS','', 'GET', false, 1), ('REGISTER_ONE','', 'POST', true, 1),

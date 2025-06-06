@@ -32,7 +32,7 @@ public class PermissionController {
    }
 
    @GetMapping("/{permissionId}")
-   public ResponseEntity<PermissionResponse> findPermissionById(@PathVariable Long permissionId){
+   public ResponseEntity<PermissionResponse> findPermissionById(@PathVariable("permissionId") Long permissionId){
       Optional<PermissionResponse> permission = permissionService.findPermissionById(permissionId);
 
       return permission.map(ResponseEntity::ok)
@@ -46,7 +46,7 @@ public class PermissionController {
    }
 
    @DeleteMapping("/{permissionId}")
-   public ResponseEntity<PermissionResponse> deletePermissionById(@PathVariable Long permissionId){
+   public ResponseEntity<PermissionResponse> deletePermissionById(@PathVariable("permissionId") Long permissionId){
       PermissionResponse permission = permissionService.deletePermissionById(permissionId);
       return ResponseEntity.ok(permission);
    }

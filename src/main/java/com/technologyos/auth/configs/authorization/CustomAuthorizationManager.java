@@ -3,7 +3,6 @@ package com.technologyos.auth.configs.authorization;
 import com.technologyos.auth.entities.GrantedPermission;
 import com.technologyos.auth.entities.Operation;
 import com.technologyos.auth.entities.User;
-import com.technologyos.auth.exceptions.ObjectNotFoundException;
 import com.technologyos.auth.repositories.OperationRepository;
 import com.technologyos.auth.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -62,9 +61,8 @@ public class CustomAuthorizationManager implements AuthorizationManager<RequestA
 
    private List<Operation> obtainOperations(Authentication authentication) {
       UsernamePasswordAuthenticationToken authToken = (UsernamePasswordAuthenticationToken) authentication;
-      String username = (String) authToken.getPrincipal();
-      User user = userService.findCustomerByUsername(username)
-         .orElseThrow(() -> new ObjectNotFoundException("User not found. Username: " + username));
+      String email = (String) authToken.getPrincipal();
+      User user = userService.findCustomerByEmail(email);
 
       return user.getRole().getPermissions().stream()
          .map(GrantedPermission::getOperation)

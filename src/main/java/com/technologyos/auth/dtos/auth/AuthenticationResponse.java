@@ -10,5 +10,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 public class AuthenticationResponse implements Serializable {
+   private String username;
+   private String email;
+   private String name;
+   private String role;
    private String jwt;
 }

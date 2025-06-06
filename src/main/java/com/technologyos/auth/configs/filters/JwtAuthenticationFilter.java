@@ -1,7 +1,6 @@
 package com.technologyos.auth.configs.filters;
 
 import com.technologyos.auth.entities.JwtToken;
-import com.technologyos.auth.exceptions.ObjectNotFoundException;
 import com.technologyos.auth.repositories.JwtTokenRepository;
 import com.technologyos.auth.services.UserService;
 import com.technologyos.auth.security.JwtService;
@@ -46,13 +45,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
          filterChain.doFilter(request, response);
          return;
       }
-      String username = jwtService.extractUsername(jwt);
+      String email = jwtService.extractUsername(jwt);
 
-      UserDetails user = userService.findCustomerByUsername(username)
-         .orElseThrow(() -> new ObjectNotFoundException("User not found. username: " + username));
+      UserDetails user = userService.findCustomerByEmail(email);
 
       UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-         username, null, user.getAuthorities()
+         email, null, user.getAuthorities()
       );
 
       authToken.setDetails(new WebAuthenticationDetails(request));
