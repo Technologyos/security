@@ -21,4 +21,4 @@ INSERT INTO granted_permission (role_id, operation_id) VALUES
 -- dev credentials
 -- user: asalazarj
 -- password : Temporal@32
-INSERT INTO users (username, name, password, role_id) VALUES ('asalazarj', 'Armando Salazar', '$2a$10$Pp1QKuLURYKH/ijzicVR8upDeTNECCFeiXERlODJBqDUVv0DT6Fsi', 2);
+INSERT INTO users (username, email, name, password, role_id) VALUES ('asalazarj', 'armando@gmail.com', 'Armando Salazar', '$2a$10$Pp1QKuLURYKH/ijzicVR8upDeTNECCFeiXERlODJBqDUVv0DT6Fsi', 2);
