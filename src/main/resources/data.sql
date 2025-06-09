@@ -1,3 +1,5 @@
+INSERT INTO status(name) VALUES ('ENABLED'), ('DISABLED'), ('PENDING');
+
 INSERT INTO role (name) VALUES ('CUSTOMER'), ('ADMINISTRATOR');
 
 INSERT INTO module (name, base_path) VALUES ('CUSTOMER', '/customers'),('AUTH', '/auth'),
