@@ -16,7 +16,7 @@ import java.util.Date;
 public class JwtToken {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
+   private Long tokenId;
 
    @Column(length = 2048)
    private String token;
