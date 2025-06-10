@@ -13,14 +13,13 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@SequenceGenerator(name = "status_seq", sequenceName = "status_sequence", allocationSize = 1)
 @Table(name = "status")
 @Setter
 @Getter
 @ToString
 public class Status {
    @Id
-   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "status_seq")
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(nullable = false)
    private Long statusId;
 
