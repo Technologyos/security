@@ -19,6 +19,7 @@
     <postgres.version>42.7.2</postgres.version>
     <jjwt.version>0.12.6</jjwt.version>
     <jackson.datatype.version>2.15.2</jackson.datatype.version>
+    <swagger.annotations.version>2.2.30</swagger.annotations.version>
 	</properties>
 
   <dependencyManagement>
@@ -131,6 +132,12 @@
       <artifactId>jjwt-jackson</artifactId>
       <version>${jjwt.version}</version>
       <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.swagger.core.v3</groupId>
+      <artifactId>swagger-annotations</artifactId>
+      <version>${swagger.annotations.version}</version>
     </dependency>
 	</dependencies>
 
