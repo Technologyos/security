@@ -2,8 +2,8 @@ INSERT INTO status(name) VALUES ('ENABLED'), ('DISABLED'), ('PENDING');
 
 INSERT INTO role (name, status_id) VALUES ('CUSTOMER', 1), ('ADMINISTRATOR', 1);
 
-INSERT INTO module (name, base_path) VALUES ('CUSTOMER', '/customers'), ('AUTH', '/auth'),
-('PERMISSION', '/permissions');
+INSERT INTO module (name, base_path, status_id) VALUES ('CUSTOMER', '/customers', 1),
+('AUTH', '/auth', 1), ('PERMISSION', '/permissions', 1);
 
 INSERT INTO operation (name, path, http_method, permit_all, module_id) VALUES
 ('READ_ALL_CUSTOMERS','', 'GET', false, 1), ('REGISTER_ONE','', 'POST', true, 1),
