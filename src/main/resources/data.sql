@@ -1,8 +1,8 @@
 INSERT INTO status(name) VALUES ('ENABLED'), ('DISABLED'), ('PENDING');
 
-INSERT INTO role (name) VALUES ('CUSTOMER'), ('ADMINISTRATOR');
+INSERT INTO role (name, status_id) VALUES ('CUSTOMER', 1), ('ADMINISTRATOR', 1);
 
-INSERT INTO module (name, base_path) VALUES ('CUSTOMER', '/customers'),('AUTH', '/auth'),
+INSERT INTO module (name, base_path) VALUES ('CUSTOMER', '/customers'), ('AUTH', '/auth'),
 ('PERMISSION', '/permissions');
 
 INSERT INTO operation (name, path, http_method, permit_all, module_id) VALUES
