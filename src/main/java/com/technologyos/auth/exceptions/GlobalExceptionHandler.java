@@ -30,8 +30,22 @@ public class GlobalExceptionHandler {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiError);
    }
 
+   @ExceptionHandler(ObjectNotFoundException.class)
+   public ResponseEntity<ApiException> handleObjectNotFoundException(HttpServletRequest request, ObjectNotFoundException exception) {
+      ApiException apiError = ApiException.builder()
+         .code(exception.getCode())
+         .backendMessage(exception.getLocalizedMessage())
+         .url(request.getRequestURL().toString())
+         .method(request.getMethod())
+         .message("The requested resource was not found.")
+         .timestamp(LocalDateTime.now())
+         .build();
+      log.info("ObjectNotFoundException {} {}", exception.getMessage(), exception.getCode());
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
+   }
+
    @ExceptionHandler(AccessDeniedException.class)
-   public ResponseEntity<?> handlerAccessDeniedException(HttpServletRequest request, AccessDeniedException exception){
+   public ResponseEntity<?> handlerAccessDeniedException(HttpServletRequest request, AccessDeniedException exception) {
       ApiException apiError = ApiException.builder()
          .code(HttpStatus.FORBIDDEN.value())
          .backendMessage(exception.getLocalizedMessage())
