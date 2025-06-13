@@ -22,7 +22,7 @@ services:
 
   pgadmin:
     container_name: pgadmin
-    image: dpage/pgadmin4:9.0
+    image: dpage/pgadmin4:9.4
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGA_EMAIL}
