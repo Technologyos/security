@@ -2,7 +2,7 @@ package com.technologyos.auth.configs.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.technologyos.auth.dtos.ApiError;
+import com.technologyos.auth.dtos.ApiException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
    @Override
    public void handle(HttpServletRequest request, HttpServletResponse response,
                       AccessDeniedException accessDeniedException) throws IOException {
-      ApiError apiError = ApiError.builder()
+      ApiException apiError = ApiException.builder()
          .backendMessage(accessDeniedException.getLocalizedMessage())
          .url(request.getRequestURL().toString())
          .method(request.getMethod())

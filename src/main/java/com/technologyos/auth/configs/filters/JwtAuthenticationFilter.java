@@ -1,7 +1,7 @@
 package com.technologyos.auth.configs.filters;
 
 import com.technologyos.auth.entities.JwtToken;
-import com.technologyos.auth.repositories.JwtTokenRepository;
+import com.technologyos.auth.repositories.JwtRepository;
 import com.technologyos.auth.services.JwtService;
 import com.technologyos.auth.services.UserService;
 import jakarta.servlet.FilterChain;
@@ -26,7 +26,7 @@ import java.util.Optional;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
    private final JwtService jwtService;
    private final UserService userService;
-   private final JwtTokenRepository jwtTokenRepository;
+   private final JwtRepository jwtTokenRepository;
 
    @Override
    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
