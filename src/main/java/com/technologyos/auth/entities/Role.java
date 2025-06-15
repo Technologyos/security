@@ -15,8 +15,12 @@ import java.util.List;
 public class Role {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(nullable = false)
    private Long roleId;
+
+   @Column(nullable = false)
    private String name;
+
    @Column(name = "status_id", nullable = false)
    private Long statusId;
 

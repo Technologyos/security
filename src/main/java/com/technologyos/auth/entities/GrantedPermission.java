@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class GrantedPermission {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(nullable = false)
    private Long grantedPermissionId;
 
    @ManyToOne

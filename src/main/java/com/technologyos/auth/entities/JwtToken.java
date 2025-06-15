@@ -16,11 +16,16 @@ import java.util.Date;
 public class JwtToken {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(nullable = false)
    private Long tokenId;
 
    @Column(length = 2048)
    private String token;
+
+   @Column(nullable = false)
    private Date expiration;
+
+   @Column(nullable = false)
    private boolean isValid;
 
    @ManyToOne

@@ -12,10 +12,19 @@ import java.time.LocalDateTime;
 public class Operation {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(nullable = false)
    private Long operationId;
+
+   @Column(nullable = false)
    private String name;
+
+   @Column(nullable = false)
    private String path;
+
+   @Column(nullable = false)
    private String httpMethod;
+
+   @Column(nullable = false)
    private boolean permitAll;
 
    @ManyToOne
