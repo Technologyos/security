@@ -3,7 +3,7 @@ package com.technologyos.auth.services.impl;
 import com.technologyos.auth.entities.JwtToken;
 import com.technologyos.auth.entities.User;
 import com.technologyos.auth.exceptions.ObjectNotFoundException;
-import com.technologyos.auth.repositories.JwtTokenRepository;
+import com.technologyos.auth.repositories.JwtRepository;
 import com.technologyos.auth.services.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -24,7 +25,7 @@ import java.util.Map;
 @Slf4j
 public class JwtServiceImpl implements JwtService {
    @Autowired
-   private JwtTokenRepository jwtTokenRepository;
+   private JwtRepository jwtRepository;
 
    @Value("${security.jwt.expiration-in-minutes}")
    private Long expirationInMinutes;
@@ -34,8 +35,9 @@ public class JwtServiceImpl implements JwtService {
 
    @Override
    public JwtToken findByToken(String jwt) {
-      return jwtTokenRepository.findByToken(jwt)
-         .orElseThrow(() -> new ObjectNotFoundException("Token not found: " + jwt));
+      return jwtRepository.findByToken(jwt)
+         .orElseThrow(() -> new ObjectNotFoundException(HttpStatus.NOT_FOUND.value(),
+            "Token not found by token " + jwt, HttpStatus.NOT_FOUND));
    }
 
    @Override
@@ -61,7 +63,7 @@ public class JwtServiceImpl implements JwtService {
 
    @Override
    public void saveToken(JwtToken token) {
-      jwtTokenRepository.save(token);
+      jwtRepository.save(token);
    }
 
    @Override
