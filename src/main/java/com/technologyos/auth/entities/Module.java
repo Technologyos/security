@@ -12,9 +12,21 @@ import java.time.LocalDateTime;
 public class Module {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(nullable = false)
    private Long moduleId;
+
+   @Column(nullable = false)
    private String name;
+
+   @Column(name = "base_path", nullable = false)
    private String basePath;
+
+   @Column(name = "status_id", nullable = false)
+   private Long statusId;
+
+   @OneToOne(fetch = FetchType.EAGER)
+   @JoinColumn(name = "status_id", insertable = false, updatable = false)
+   private Status status;
 
    @CreationTimestamp
    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT NOW()")
