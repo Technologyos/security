@@ -1,9 +1,11 @@
 package com.technologyos.auth.configs;
 
-import com.technologyos.auth.services.UserService;
+import com.technologyos.auth.exceptions.ObjectNotFoundException;
+import com.technologyos.auth.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -14,9 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
-public class SecurityBeansInjector {
+public class SecurityInjector {
 
-   private final UserService userService;
+   private final UserRepository userRepository;
 
    /**
     * Configures the authentication manager.
@@ -50,6 +52,8 @@ public class SecurityBeansInjector {
     */
    @Bean
    public UserDetailsService userDetailsService() {
-      return userService::findCustomerByEmail;
+      return email -> userRepository.findByEmail(email)
+         .orElseThrow(() -> new ObjectNotFoundException(HttpStatus.NOT_FOUND.value(),
+            "User not found with email: " + email, HttpStatus.NOT_FOUND));
    }
 }
