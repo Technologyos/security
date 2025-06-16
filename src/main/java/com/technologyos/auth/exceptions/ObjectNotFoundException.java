@@ -15,10 +15,6 @@ public class ObjectNotFoundException extends RuntimeException {
    private HttpStatus httpStatus;
    private Throwable cause;
 
-   public ObjectNotFoundException(String message) {
-      this.message = message;
-   }
-
    public ObjectNotFoundException(int code, String message, HttpStatus httpStatus) {
       this.code = code;
       this.message = message;
