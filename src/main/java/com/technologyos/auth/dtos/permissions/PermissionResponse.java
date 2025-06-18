@@ -12,7 +12,6 @@ import java.io.Serializable;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PermissionResponse implements Serializable {
-   private long permissionId;
    private String operation;
    private String httpMethod;
    private String module;
