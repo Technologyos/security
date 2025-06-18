@@ -3,6 +3,7 @@ package com.technologyos.auth.business.impl;
 import com.technologyos.auth.business.AuthBusiness;
 import com.technologyos.auth.dtos.auth.AuthenticationRequest;
 import com.technologyos.auth.dtos.auth.AuthenticationResponse;
+import com.technologyos.auth.dtos.signup.ProfileResponse;
 import com.technologyos.auth.dtos.signup.RegisteredUser;
 import com.technologyos.auth.dtos.signup.UserRequest;
 import com.technologyos.auth.entities.JwtToken;
@@ -105,11 +106,21 @@ public class AuthBusinessImpl implements AuthBusiness {
    }
 
    @Override
-   public User getProfile() {
+   public ProfileResponse findProfile() {
       UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
       String email = (String) auth.getPrincipal();
 
-      return userService.findCustomerByEmail(email);
+      User currentUser = userService.findCustomerByEmail(email);
+
+      return ProfileResponse.builder()
+         .userId(currentUser.getUserId())
+         .username(currentUser.getUsername())
+         .email(currentUser.getEmail())
+         .name(currentUser.getName())
+         .role(currentUser.getRole().getName())
+         .authorities(currentUser.getAuthorities())
+         .enabled(currentUser.isEnabled())
+         .build();
    }
 
    @Override

@@ -2,9 +2,9 @@ package com.technologyos.auth.business;
 
 import com.technologyos.auth.dtos.auth.AuthenticationRequest;
 import com.technologyos.auth.dtos.auth.AuthenticationResponse;
+import com.technologyos.auth.dtos.signup.ProfileResponse;
 import com.technologyos.auth.dtos.signup.RegisteredUser;
 import com.technologyos.auth.dtos.signup.UserRequest;
-import com.technologyos.auth.entities.User;
 import jakarta.servlet.http.HttpServletRequest;
 
 public interface AuthBusiness {
@@ -15,7 +15,7 @@ public interface AuthBusiness {
 
    boolean validateToken(String jwt);
 
-   User getProfile();
+   ProfileResponse findProfile();
 
    void logout(HttpServletRequest request);
 }
