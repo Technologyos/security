@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -43,12 +44,15 @@ public class PermissionServiceImpl implements PermissionService {
       GrantedPermission newPermission = new GrantedPermission();
 
       Operation operation = operationRepository.findByName(permissionRequest.getOperation())
-         .orElseThrow(() -> new ObjectNotFoundException("Operation not found. Operation: " + permissionRequest.getOperation()));
+         .orElseThrow(() -> new ObjectNotFoundException(HttpStatus.NOT_FOUND.value(),
+            "operation not found. Operation: " + permissionRequest.getOperation(), HttpStatus.NOT_FOUND));
 
       newPermission.setOperation(operation);
 
-      Role role = roleRepository.findByName(permissionRequest.getRole()).orElseThrow(
-         () -> new ObjectNotFoundException("Role not found. Role: " + permissionRequest.getRole()));
+      Role role = roleRepository.findByName(permissionRequest.getRole())
+         .orElseThrow(() -> new ObjectNotFoundException(HttpStatus.NOT_FOUND.value(),
+            "Role not found. Role: " + permissionRequest.getRole(), HttpStatus.NOT_FOUND));
+
       newPermission.setRole(role);
 
       permissionRepository.save(newPermission);
@@ -58,7 +62,8 @@ public class PermissionServiceImpl implements PermissionService {
    @Override
    public PermissionResponse deletePermissionById(Long permissionId) {
       GrantedPermission permission = permissionRepository.findById(permissionId)
-         .orElseThrow(() -> new ObjectNotFoundException("Permission not found. Permission: " + permissionId));
+         .orElseThrow(() -> new ObjectNotFoundException(HttpStatus.NOT_FOUND.value(),
+            "permission not found by permissionId " + permissionId, HttpStatus.NOT_FOUND));
 
       permissionRepository.delete(permission);
 
@@ -69,7 +74,6 @@ public class PermissionServiceImpl implements PermissionService {
       if(grantedPermission == null) return null;
 
       return PermissionResponse.builder()
-         .permissionId(grantedPermission.getGrantedPermissionId())
          .role(grantedPermission.getRole().getName())
          .operation(grantedPermission.getOperation().getName())
          .httpMethod(grantedPermission.getOperation().getHttpMethod())

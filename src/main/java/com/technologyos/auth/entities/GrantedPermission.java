@@ -10,16 +10,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GrantedPermission {
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(nullable = false)
-   private Long grantedPermissionId;
+   @EmbeddedId
+   private GrantedPermissionId grantedPermissionId;
 
    @ManyToOne
+   @MapsId("roleId")
    @JoinColumn(name = "role_id")
    private Role role;
 
    @ManyToOne
+   @MapsId("operationId")
    @JoinColumn(name = "operation_id")
    private Operation operation;
 }
