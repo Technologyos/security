@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,11 +13,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Entity
 @Setter
 @Getter
+@ToString
 @Table(name = "users")
 public class User implements UserDetails {
    @Id
@@ -88,5 +91,19 @@ public class User implements UserDetails {
    @Override
    public boolean isEnabled() {
       return true;
+   }
+
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      User that = (User) o;
+      return Objects.equals(userId, that.userId);
+   }
+
+   @Override
+   public int hashCode() {
+      return Objects.hashCode(userId);
    }
 }
