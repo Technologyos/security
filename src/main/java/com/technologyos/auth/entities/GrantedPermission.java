@@ -1,12 +1,14 @@
 package com.technologyos.auth.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Objects;
 
 @Entity
-@Data
+@Setter
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class GrantedPermission {
@@ -22,4 +24,17 @@ public class GrantedPermission {
    @MapsId("operationId")
    @JoinColumn(name = "operation_id")
    private Operation operation;
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      GrantedPermission that = (GrantedPermission) o;
+      return Objects.equals(grantedPermissionId, that.grantedPermissionId);
+   }
+
+   @Override
+   public int hashCode() {
+      return Objects.hashCode(grantedPermissionId);
+   }
 }
