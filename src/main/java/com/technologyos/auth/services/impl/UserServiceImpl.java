@@ -11,16 +11,14 @@ import com.technologyos.auth.services.RoleService;
 import com.technologyos.auth.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -31,19 +29,20 @@ public class UserServiceImpl implements UserService {
 
    @Override
    public Page<RegisteredUser> findAll(Pageable pageable) {
-      Page<User> userPage = userRepository.findAll(pageable);
+      return userRepository.findAll(pageable)
+         .map(this::userEntityToRegisteredUser);
+   }
 
-      List<RegisteredUser> content = userPage.getContent().stream()
-         .map(user -> RegisteredUser.builder()
-            .userId(user.getUserId())
-            .username(user.getUsername())
-            .email(user.getEmail())
-            .name(user.getName())
-            .role(user.getRole().getName())
-            .build())
-         .collect(Collectors.toList());
+   private RegisteredUser userEntityToRegisteredUser(User user){
+      if(user == null) return null;
 
-      return new PageImpl<>(content, pageable, userPage.getTotalElements());
+      return RegisteredUser.builder()
+         .userId(user.getUserId())
+         .username(user.getUsername())
+         .email(user.getEmail())
+         .name(user.getName())
+         .role(user.getRole().getName())
+         .build();
    }
 
    @Override
@@ -54,8 +53,7 @@ public class UserServiceImpl implements UserService {
       user.setEmail(userRequest.getEmail());
       user.setName(userRequest.getName());
       user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-      Role defaultRole = roleService.findDefaultRole()
-         .orElseThrow(() -> new ObjectNotFoundException("Role not found. Default Role"));
+      Role defaultRole = roleService.findDefaultRole();
       user.setRole(defaultRole);
       return userRepository.save(user);
    }
@@ -63,7 +61,8 @@ public class UserServiceImpl implements UserService {
    @Override
    public User findCustomerByEmail(String email) {
       return userRepository.findByEmail(email)
-         .orElseThrow(() -> new ObjectNotFoundException("Customer not found. Email: " + email));
+         .orElseThrow(() -> new ObjectNotFoundException(HttpStatus.NOT_FOUND.value(),
+            "customer not found by email: " + email, HttpStatus.NOT_FOUND));
    }
 
    private void validatePassword(UserRequest userRequest) {
