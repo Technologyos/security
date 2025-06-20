@@ -39,7 +39,7 @@ public class RoleServiceImpl implements RoleService {
    public Role findRoleById(Long roleId) {
       return roleRepository.findById(roleId)
          .orElseThrow(() -> new ObjectNotFoundException(HttpStatus.NOT_FOUND.value(),
-            "role not found by defaultRole " + defaultRole, HttpStatus.NOT_FOUND));
+            "role not found by id " + defaultRole, HttpStatus.NOT_FOUND));
    }
 
    @Override
