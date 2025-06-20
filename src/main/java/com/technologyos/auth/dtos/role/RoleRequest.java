@@ -14,5 +14,5 @@ import lombok.NoArgsConstructor;
 public class RoleRequest {
    @NotBlank
    private String name;
-   private StatusEnum statusId;
+   private StatusEnum status;
 }
