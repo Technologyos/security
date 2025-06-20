@@ -39,7 +39,7 @@ public class RoleServiceImpl implements RoleService {
    public Role findRoleById(Long roleId) {
       return roleRepository.findById(roleId)
          .orElseThrow(() -> new ObjectNotFoundException(HttpStatus.NOT_FOUND.value(),
-            "role not found by id " + defaultRole, HttpStatus.NOT_FOUND));
+            "role not found by id " + roleId, HttpStatus.NOT_FOUND));
    }
 
    @Override
@@ -54,7 +54,7 @@ public class RoleServiceImpl implements RoleService {
    public Role updateRole(RoleRequest roleRequest, Long roleId) {
       Role currentRole = this.findRoleById(roleId);
       currentRole.setName(roleRequest.getName());
-      currentRole.setStatusId(roleRequest.getStatusId().getCode());
+      currentRole.setStatusId(roleRequest.getStatus().getCode());
       return roleRepository.save(currentRole);
    }
 
