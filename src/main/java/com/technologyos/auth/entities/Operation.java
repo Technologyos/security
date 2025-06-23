@@ -33,8 +33,11 @@ public class Operation {
    @Column(nullable = false)
    private boolean permitAll;
 
+   @Column(name = "module_id", nullable = false)
+   private Long moduleId;
+
    @ManyToOne
-   @JoinColumn(name = "module_id")
+   @JoinColumn(name = "module_id", insertable = false, updatable = false)
    private Module module;
 
    @Column(name = "status_id", nullable = false)
