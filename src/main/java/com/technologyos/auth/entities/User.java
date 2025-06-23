@@ -43,6 +43,13 @@ public class User implements UserDetails {
    @JoinColumn(name = "role_id")
    private Role role;
 
+   @Column(name = "status_id", nullable = false)
+   private Long statusId;
+
+   @ManyToOne
+   @JoinColumn(name = "status_id", insertable = false, updatable = false)
+   private Status status;
+
    @CreationTimestamp
    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT NOW()")
    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
