@@ -12,4 +12,6 @@ public interface OperationRepository extends JpaRepository<Operation, Long> {
    List<Operation> findByPublicAccess();
 
    Optional<Operation> findByName(String operation);
+
+   List<Operation> findByStatusId(Long statusId);
 }
