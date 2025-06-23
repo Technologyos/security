@@ -29,7 +29,7 @@ public class Role {
    @Column(name = "status_id", nullable = false)
    private Long statusId;
 
-   @OneToOne(fetch = FetchType.EAGER)
+   @ManyToOne
    @JoinColumn(name = "status_id", insertable = false, updatable = false)
    private Status status;
 

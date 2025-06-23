@@ -37,6 +37,13 @@ public class Operation {
    @JoinColumn(name = "module_id")
    private Module module;
 
+   @Column(name = "status_id", nullable = false)
+   private Long statusId;
+
+   @ManyToOne
+   @JoinColumn(name = "status_id", insertable = false, updatable = false)
+   private Status status;
+
    @CreationTimestamp
    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT NOW()")
    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
