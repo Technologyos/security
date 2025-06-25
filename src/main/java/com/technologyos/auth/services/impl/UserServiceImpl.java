@@ -2,6 +2,7 @@ package com.technologyos.auth.services.impl;
 
 import com.technologyos.auth.dtos.signup.RegisteredUser;
 import com.technologyos.auth.dtos.signup.UserRequest;
+import com.technologyos.auth.dtos.status.StatusEnum;
 import com.technologyos.auth.entities.Role;
 import com.technologyos.auth.entities.User;
 import com.technologyos.auth.exceptions.InvalidPasswordException;
@@ -42,6 +43,7 @@ public class UserServiceImpl implements UserService {
          .email(user.getEmail())
          .name(user.getName())
          .role(user.getRole().getName())
+         .status(user.getStatus().getName())
          .build();
    }
 
@@ -55,6 +57,7 @@ public class UserServiceImpl implements UserService {
       user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
       Role defaultRole = roleService.findDefaultRole();
       user.setRole(defaultRole);
+      user.setUserId(StatusEnum.ENABLED.getCode());
       return userRepository.save(user);
    }
 
@@ -63,6 +66,39 @@ public class UserServiceImpl implements UserService {
       return userRepository.findByEmail(email)
          .orElseThrow(() -> new ObjectNotFoundException(HttpStatus.NOT_FOUND.value(),
             "customer not found by email: " + email, HttpStatus.NOT_FOUND));
+   }
+
+   @Override
+   public User findCustomerByUsername(String username) {
+      return userRepository.findByUsername(username)
+         .orElseThrow(() -> new ObjectNotFoundException(HttpStatus.NOT_FOUND.value(),
+            "customer not found by username: " + username, HttpStatus.NOT_FOUND));
+   }
+
+   @Override
+   public User findCustomerById(Long userId) {
+      return userRepository.findById(userId)
+         .orElseThrow(() -> new ObjectNotFoundException(HttpStatus.NOT_FOUND.value(),
+            "customer not found by id: " + userId, HttpStatus.NOT_FOUND));
+   }
+
+   @Override
+   public User disableById(Long userId) {
+      User user = this.findCustomerById(userId);
+      user.setStatusId(StatusEnum.DISABLED.getCode());
+      return userRepository.save(user);
+   }
+
+   @Override
+   public User enableById(Long userId) {
+      User user = this.findCustomerById(userId);
+      user.setStatusId(StatusEnum.ENABLED.getCode());
+      return userRepository.save(user);
+   }
+
+   @Override
+   public List<User> findByStatusId(Long statusId) {
+      return userRepository.findByStatusId(statusId);
    }
 
    private void validatePassword(UserRequest userRequest) {
