@@ -16,16 +16,15 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping("/customers")
 public class CustomerController {
-
    private final AuthBusiness authBusiness;
    private final UserService userService;
 
    @GetMapping
    public ResponseEntity<Page<RegisteredUser>> findAll(Pageable pageable){
-      Page<RegisteredUser> doctorsPage = userService.findAll(pageable);
+      Page<RegisteredUser> customers = userService.findAll(pageable);
 
-      if(doctorsPage.hasContent()){
-         return ResponseEntity.ok(doctorsPage);
+      if(customers.hasContent()){
+         return ResponseEntity.ok(customers);
       }
 
       return ResponseEntity.notFound().build();
@@ -34,6 +33,8 @@ public class CustomerController {
    @PostMapping
    public ResponseEntity<RegisteredUser> registerCustomer(@RequestBody @Valid UserRequest userRequest){
       RegisteredUser registeredUser = authBusiness.registerCustomer(userRequest);
-      return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
+      return ResponseEntity
+         .status(HttpStatus.CREATED)
+         .body(registeredUser);
    }
 }
