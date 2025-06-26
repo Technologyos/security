@@ -1,6 +1,7 @@
 package com.technologyos.auth.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.technologyos.auth.dtos.status.StatusEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -97,9 +98,8 @@ public class User implements UserDetails {
 
    @Override
    public boolean isEnabled() {
-      return true;
+      return statusId.equals(StatusEnum.ENABLED.getCode());
    }
-
 
    @Override
    public boolean equals(Object o) {
