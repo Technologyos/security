@@ -20,4 +20,5 @@ public class RegisteredUser implements Serializable {
    private String name;
    private String role;
    private String jwt;
+   private String status;
 }
